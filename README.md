@@ -15,8 +15,24 @@ Clone the install to any directory on a linux server
 run the setup script:
 
 ```bash
-  cd offline_prov
-  ./setup.sh
+  cd offline_provisioner
+  ./setup.sh 
+  Obtaining PSQL Apt Key
+  ######################
+  Apt Key Added
+
+  Getting Apt Update
+  ###################
+  Update Successful
+
+  Installing Needed Packages
+  ##########################
+  Applications Installed
+
+  Setting Up Database
+  ###################
+  Database set up successfully!
+  
 ```
     
 This will install and setup the necessary postgresql tables, schemas, and directories.
