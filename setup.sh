@@ -12,14 +12,14 @@ function error ()
 function install ()
 {
 
-	function obtain_psql_apt_key ()
+	function psql_apt_key ()
 	{
 		echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list || error "Issue Occured while adding postgresql to sources.list.d"
-		wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - || error "Issue Occured while obtaining psql gpg key"
+		sudo apt-key add misc/ACCC4CF8.asc || error "Issue Occured while add psql asc key"
 	}
 	echo "Obtaining PSQL Apt Key"
 	echo "######################"
-	if obtain_psql_apt_key > $LOG 2>&1; then
+	if psql_apt_key > $LOG 2>&1; then
 		echo "Apt Key Added
 		"
 	else
