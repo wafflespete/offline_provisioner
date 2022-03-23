@@ -7,7 +7,7 @@ LOG=/tmp/op_setup.log
 function error () 
 {
 	echo $* && return 1
-}1
+}
 
 function install ()
 {
@@ -37,7 +37,8 @@ function setup_psql ()
 {
 	echo "Setting Up Database"
 	echo "###################"
-	if sudo -u postgres psql -f database/provisoner_schema.sql; then
+	cp  database/provisoner_schema.sql /var/lib/postgresql/schema.sql
+	if sudo -u postgres psql -f /var/lib/postgresql/schema.sql; then
 		echo "Database set up successfully!"
 	else
 		error "Critical: Failed to setup database"
