@@ -7,7 +7,7 @@ LOG=/tmp/op_setup.log
 function error () 
 {
 	echo $* && return 1
-}
+}1
 
 function install ()
 {
@@ -18,7 +18,7 @@ function install ()
 
 	echo "Getting Apt Update"
 	echo "###################"
-	if apt-get update 2>&1 $LOG; then
+	if apt-get update > $LOG; then
 		echo "Update Successful"
 	else
 		error "Critical Issue Occured during apt-get update"
@@ -26,7 +26,7 @@ function install ()
 
 	echo "Installing Needed Packages"
 	echo "##########################"
-	if apt-get install -y perl python3 python3-pip  postgresql-12 postgresql-client-12 postgresql-plpython3-12  ansible swaks 2>&1 $LOG; then
+	if apt-get install -y perl python3 python3-pip  postgresql-12 postgresql-client-12 postgresql-plpython3-12  ansible swaks > $LOG; then
 		echo "Applications Installed"
 	else
 		error "Issue Occured Installing necessary applications"
