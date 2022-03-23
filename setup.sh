@@ -49,7 +49,12 @@ function setup_psql ()
 	echo "Setting Up Database"
 	echo "###################"
 	cp  database/provisioner_schema.sql /var/lib/postgresql/schema.sql
-	if sudo -u postgres psql -f /var/lib/postgresql/schema.sql; then
+	sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f schema.sql" > $LOG 2>&1
+	function check_db () 
+	{
+		sudo -u postgres sh -c "psql postgres 'select hostname from clients' | head -1 | grep -q hostname"
+	}
+	if check_db; then
 		echo "Database set up successfully!
 		"
 	else
