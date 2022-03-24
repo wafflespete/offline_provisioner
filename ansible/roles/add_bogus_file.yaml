@@ -2,7 +2,7 @@
 - hosts: all
 
   tasks:
-  - name: copy foo.txt blank file into OCC dir
+  - name: copy foo.txt blank file into root home dir
     copy:
      src: /opt/offline_provisioner/ansible/files/foo.txt
      dest: /root/.

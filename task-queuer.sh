@@ -354,14 +354,14 @@ function PARSE_LOG () {
         ANY_FAILS=$(psql  $WORKSTATION_DB -tc \
         "SELECT date FROM failure where job = '$J' and date = '$F_NOW'")
         #Check if there are any fails associated corresponding epoch timestamp
-        for MULTI_FAIL in $ANY_FAILS; do 
-            if [[ $ANY_FAILS -eq "$MULTI_FAIL" ]]; then
-                NOTIFY_FAIL || BROKEN CANT NOTIFY FAILURE; N
-            fi
-        done
+        #for MULTI_FAIL in $ANY_FAILS; do 
+        #    if [[ $ANY_FAILS -eq "$MULTI_FAIL" ]]; then
+        #        NOTIFY_FAIL || BROKEN CANT NOTIFY FAILURE; N
+        #    fi
+        #done
     }
     MAIN_PARSE_LOOP
-    NOTIFY_SUCCESS
+\
                
 }
 
