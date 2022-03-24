@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+  - name: copy foo.txt blank file into OCC dir
+    copy:
+     src: /opt/provision_master/ansible/files/foo.txt
+     dest: /home/onecall
+     owner: onecall
+     group: onecall
+     mode: '0770'
+
