@@ -7,7 +7,9 @@ Push based provisioning system for Ubuntu Server. Used for client systems that a
 
 Clone the install to /opt ctory on a linux server
 
-```cd /opt; git clone https://github.com/wafflespete/offline_provisioner.git```
+```bash
+cd /opt; git clone https://github.com/wafflespete/offline_provisioner.git
+```
 
 Run the setup script:
 
@@ -42,8 +44,11 @@ To use the offline provisioning system, build a playbook or use one of the examp
 
 ```bash
 
-    ./custom-add.sh -P add_bogus_file -H workstation3
+    ./custom-add.sh -P add_bogus_file -H workstation1
 
 ```
 
-This will queue the 'add_bogus_file.yaml' play to workstation 3 and install the changes once workstation3 comes online.
+This will queue the 'add_bogus_file.yaml' play to workstation1 and install the changes once workstation1 comes online.
+
+
+![Task_Queuer]https://s1.gifyu.com/images/Animationfcde11a2e62d757a.gif)
