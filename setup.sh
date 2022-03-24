@@ -49,12 +49,12 @@ function setup_psql ()
 	echo "Setting Up Database"
 	echo "###################"
 	cp  database/provisioner_schema.sql /var/lib/postgresql/schema.sql
-	sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f schema.sql" > $LOG 2>&1
+	cp database/example_client.sql /var/lib/postgresql/example_client.sql
+	sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f schema.sql" > $LOG 2>&1 || error "Issue Adding Schema To Postgres DB"
 	function check_db () 
 	{
 		##Add Example Woprkstation To Get Daemon Started
-		sudo -u postgres sh -c "cd /var/lib/postgresql; psql postgres -c 'insert into clients (hostname, state, os, supervisor, ipv4, avail, last_seen, mac) \
-								value ('workstation1', 'ca', 'ubuntu 20', t, 192.168.1.48, 'Offline', '$(date +%Y-%m-%d)', '8064F4084B87')"
+		sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f example_client.sql"
 	}
 	if check_db; then
 		echo "Database set up successfully!
