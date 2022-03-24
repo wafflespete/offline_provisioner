@@ -1,11 +1,6 @@
 # Offline Linux Provisioner
 
-Remote workstations are constantly unavailable and sometimes a pull based system isn't the answer. To fix this issue, I've created a set of scripts and tools capable of discovering new workstations, pushing updates via ansible to those workstations, or waiting for that workstation to come online to recieve the update.
-
-
-
-
-
+Push based provisioning system for Ubuntu Server. Used for client systems that aren't available 24/7. Script daemon will wait for target systems to come online and push updates/changes via ansible as targets become available.
 
 
 ## Installation
