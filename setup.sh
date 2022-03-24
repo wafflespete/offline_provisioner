@@ -75,14 +75,18 @@ function setup_files ()
 function setup_services ()
 {
 	set -e
+	if ! grep -q workstation /etc/hosts; then
+		echo '192.168.1.47    workstation1' >> /etc/hosts
+	fi
+	chown -R postgres:postgres /opt/offline_provisioner
 	echo "Installing System Daemons"
 	echo "#########################"
 	cd /opt/offline_provisioner
 	cp misc/task-queuer.service /etc/systemd/system/task-queuer.service
 	cp misc/client_discovery.service /etc/systemd/system/client_discovery.service
 	systemctl daemon-reload
-	systemctl start task-queuer.service
-	systemctl start client_discovery.service
+	systemctl start task-queuer.service && echo "Task Queuer Started!"
+	systemctl start client_discovery.service && echo "Client Discovery Daemon Started!"
 
 }
 
