@@ -51,4 +51,8 @@ To use the offline provisioning system, build a playbook or use one of the examp
 This will queue the 'add_bogus_file.yaml' play to workstation1 and install the changes once workstation1 comes online.
 
 
-![Task_Queuer](https://s1.gifyu.com/images/Animationfcde11a2e62d757a.gif)
+![proviion_task_1.gif](https://s1.gifyu.com/images/proviion_task_1.gif)
+
+Here is an example of when a task is queued to a client and that client is unavailable (at first)
+
+![proviion_task_with_wait.gif](https://s1.gifyu.com/images/proviion_task_with_wait.gif)
