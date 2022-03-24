@@ -5,9 +5,11 @@ Push based provisioning system for Ubuntu Server. Used for client systems that a
 
 ## Installation
 
-Clone the install to any directory on a linux server
+Clone the install to /opt ctory on a linux server
 
-run the setup script:
+```cd /opt; git clone https://github.com/wafflespete/offline_provisioner.git```
+
+Run the setup script:
 
 ```bash
   cd offline_provisioner
@@ -26,7 +28,7 @@ run the setup script:
 
   Setting Up Database
   ###################
-  Database set up successfully!
+  Database Built Successfully
   
 ```
     
