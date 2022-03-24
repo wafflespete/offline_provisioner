@@ -18,24 +18,24 @@ function CHECK_AVAIL ()
     AVAIL='/tmp/pingit'
     N=25
     for target in $ALL_HOSTS; do
-    ((i=i%N)); ((i++==0)) && wait
-    function pingit () {
-    if grep -qw "$target" $AVAIL; then
-        psql $CLIENTS_DB \
-        "UPDATE clients SET avail = 'Online' where hostname = '$target'"
-    else
-        CHECK_ELAPSED=$(psql $CLIENTS_DB \
-        "select make_interval(days => ((extract(epoch from now()) - extract(epoch from last_seen::date))/(60*60*24))::integer)::text from clients where hostname = '$target'" |  grep -o '[0-9]\+')
-        if [[ $CHECK_ELAPSED -gt 8 ]]; then
+        ((i=i%N)); ((i++==0)) && wait
+        function pingit () {
+        if grep -qw "$target" $AVAIL; then
             psql $CLIENTS_DB \
-            "UPDATE clients SET avail = 'Retired' where hostname = '$target'"
+            "UPDATE clients SET avail = 'Online' where hostname = '$target'"
         else
-             psql $CLIENTS_DB \
-            "UPDATE clients SET avail = 'Offline' where hostname = '$target'"
+            CHECK_ELAPSED=$(psql $CLIENTS_DB \
+            "select make_interval(days => ((extract(epoch from now()) - extract(epoch from last_seen::date))/(60*60*24))::integer)::text from clients where hostname = '$target'" |  grep -o '[0-9]\+')
+            if [[ $CHECK_ELAPSED -gt 8 ]]; then
+                psql $CLIENTS_DB \
+                "UPDATE clients SET avail = 'Retired' where hostname = '$target'"
+            else
+                 psql $CLIENTS_DB \
+                "UPDATE clients SET avail = 'Offline' where hostname = '$target'"
+            fi
         fi
-    fi
-    }
-    pingit > /dev/null &
+        }
+        pingit > /dev/null &
     done
 }
 

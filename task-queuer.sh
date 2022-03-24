@@ -324,8 +324,6 @@ function PARSE_LOG () {
                   echo -e "CLIENT DB REMOVED: OK" $GREEN"\xE2\x9C\x94"; N
                   echo -e "ANSIBLE REMOVED: OK" $GREEN"\xE2\x9C\x94"; N
                   echo -e "FAILURE DB ADDED: OK" $GREEN"\xE2\x9C\x94"; N
-                   fi
-
                     
           elif [[ $FAILED -gt 0 ]]; then
                 echo -e $YELLOW"WARNING: Failed Task Detected on: $HOST"; N
@@ -510,7 +508,8 @@ do
     if [[ -z $JOB_CHECK ]]; then 
         echo -e $BLUE "NO JOBS AVAILABLE" >> $STD_OUT_MON; N
         EXIT_MON >> $STD_OUT_MON
-        exit 0
+        echo -e $YELLOW"Sleeping 2 Minutes" >> $STD_OUT_MON; N
+        sleep 120
     #CHECK IF ALL JOBS IN QUEUE ONLY HAVE RETIRED HOSTS IN THEM
     #Daemon will not start unless there are hosts non-retired hosts in queue. Retired hosts will be treated as if they don't exist.
     elif [[ -z $ALL_RETIRED ]]; then
