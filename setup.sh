@@ -66,10 +66,15 @@ function setup_psql ()
 }
 function setup_files ()
 {
-	mkdir -p ansible/log
-	mkdir -p ansible/inventory
-	mkdir -p ansible/files
+	fix_perms ()
+	{
+		chown -R postgres:postgres /opt/offline_provisioner
+	}
+	for i in log inventory files; do
+		mkdir -p ansible/$i
+	done
 	echo 'Hello World' > ansible/files/foo.txt
+	fix_perms || error "Issue adjusting permissions"
 }
 
 function setup_services ()
