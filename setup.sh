@@ -52,7 +52,7 @@ function setup_psql ()
 	sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f schema.sql" > $LOG 2>&1
 	function check_db () 
 	{
-		sudo -u postgres sh -c "psql postgres 'select hostname from clients' | head -1 | grep -q hostname"
+		sudo -u postgres sh -c "cd /var/lib/postgresql; psql postgres -c 'select hostname from clients' | head -1 | grep -q hostname"
 	}
 	if check_db; then
 		echo "Database set up successfully!
