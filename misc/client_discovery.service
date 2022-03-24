@@ -1,0 +1,12 @@
+[Unit]
+Description=Workstation Monitoring Service
+After=network.target
+
+[Service]
+User=postgres
+Group=postgres
+ExecStart=/opt/offline_proivisioner/client_discovery.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
