@@ -4,9 +4,9 @@
   tasks:
   - name: copy foo.txt blank file into OCC dir
     copy:
-     src: /opt/provision_master/ansible/files/foo.txt
-     dest: /home/onecall
-     owner: onecall
-     group: onecall
+     src: /opt/offline_provisioner/ansible/files/foo.txt
+     dest: /root/.
+     owner: root
+     group: root
      mode: '0770'
 

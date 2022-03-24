@@ -36,7 +36,7 @@ function install ()
 
 	echo "Installing Needed Packages"
 	echo "##########################"
-	if apt-get install -y perl python3 python3-pip  postgresql-12 postgresql-client-12 postgresql-plpython3-12  ansible fping > $LOG 2>&1; then
+	if apt-get install -y perl python3 python3-pip  postgresql-12 postgresql-client-12 postgresql-plpython3-12 ansible fping > $LOG 2>&1; then
 		echo "Applications Installed
 		"
 	else
@@ -52,9 +52,9 @@ function setup_psql ()
 	sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f schema.sql" > $LOG 2>&1
 	function check_db () 
 	{
-		##Add Example User To Get Daemon Started
+		##Add Example Woprkstation To Get Daemon Started
 		sudo -u postgres sh -c "cd /var/lib/postgresql; psql postgres -c 'insert into clients (hostname, state, os, supervisor, ipv4, avail, last_seen, mac) \
-								value ('workstation1', 'ca', 'ubuntu 20', t, 192.168.1.95, 'Offline', '$(date +%Y-%m-%d)', '8064F4084B87')"
+								value ('workstation1', 'ca', 'ubuntu 20', t, 192.168.1.48, 'Offline', '$(date +%Y-%m-%d)', '8064F4084B87')"
 	}
 	if check_db; then
 		echo "Database set up successfully!
@@ -72,5 +72,21 @@ function setup_files ()
 	echo 'Hello World' > ansible/files/foo.txt
 }
 
+function setup_services ()
+{
+	set -e
+	echo "Installing System Daemons"
+	echo "#########################"
+	cd /opt/offline_provisioner
+	cp misc/task-queuer.service /etc/systemd/system/task-queuer.service
+	cp misc/client_discovery.service /etc/systemd/system/client_discovery.service
+	systemctl daemon-reload
+	systemctl start task-queuer.service
+	systemctl start client_discovery.service
+
+}
+
 install || exit 1
 setup_psql || exit 1
+setup_files || exit 1
+setup_services || exit 1
