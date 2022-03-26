@@ -27,7 +27,7 @@ Run the setup script:
 cd offline_provisioner; ./setup.sh
 
 ```
-Then Setup Script Will run for about 2 - 5 minutes:
+Wait 2 - 5 minutes for setup to complete:
 ```
 Obtaining PSQL Apt Key
 ######################
