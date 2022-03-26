@@ -2,7 +2,16 @@
 
 LOG=/tmp/op_setup.log
 
+if [[ -f misc/completed_setup ]]; then 
+    echo 'Offline Provisioner Setup Already Completed'
+fi
 ## setup.sh
+function PRETTY_OUTPUT () {
+
+        num=$1
+        v=$(printf "%-${num}s" "-")
+        echo "${v// /-}"
+}
 
 function error () 
 {
@@ -54,7 +63,7 @@ function setup_psql ()
 	function check_db () 
 	{
 		##Add Example Woprkstation To Get Daemon Started
-		sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f example_client.sql"
+		sudo -u postgres sh -c "cd /var/lib/postgresql; psql -f example_client.sql" > $LOG 2>&1
 	}
 	if check_db; then
 		echo "Database set up successfully!
@@ -90,8 +99,8 @@ function setup_services ()
 	cp misc/task-queuer.service /etc/systemd/system/task-queuer.service
 	cp misc/client_discovery.service /etc/systemd/system/client_discovery.service
 	systemctl daemon-reload
-	systemctl start task-queuer.service && echo "Task Queuer Started!"
-	systemctl start client_discovery.service && echo "Client Discovery Daemon Started!"
+	systemctl start task-queuer.service && echo -e "Task Queuer Started! \xE2\x9C\x94"
+	systemctl start client_discovery.service && echo -e "Client Discovery Daemon Started! \xE2\x9C\x94"
 
 }
 
@@ -99,3 +108,16 @@ install || exit 1
 setup_psql || exit 1
 setup_files || exit 1
 setup_services || exit 1
+touch misc/completed_setup
+echo
+echo "OFFLINE PROVISIONER SETUP COMPLETE!"
+echo "###################################"
+echo "Example Workstation has been added to clients table:"
+echo
+WORKSTATION1=$(sudo -u postgres sh -c 'psql postgres -tc "select hostname, state, os, ipv4, avail, last_seen, mac from clients" | grep -v 'row'')
+PRETTY_OUTPUT $WORKSTATION1
+echo $WORKSTATION1
+PRETTY_OUTPUT $WORKSTATION1
+echo
+echo "To add additional workstations, run the add_clients.sh script"
+echo "To test out the task-queuer, run: ./custom-add.sh -P add_bogus_file -H workstation1"
