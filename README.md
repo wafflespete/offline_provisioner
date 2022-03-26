@@ -6,7 +6,7 @@ Push based provisioning system for Ubuntu Server. Used for client systems that a
 
 The offline provisioning system works in 4 parts centered around a PSQL Database:
 
-1) Target clients are stored in the auto-generated postgresql database with important data about such as ipv4 address, hostname, MAC, etc...
+1) Target clients are stored in the auto-generated PSQL database with important data about each client such as ipv4 address, hostname, MAC, etc...
 2) Tasks (ansible plays) are queued into the PSQL database via a script (custom_add.sh) which assigns ansible tasks to target clients and stores those tasks in the DB for each workstation.
 3) The client_discovery.sh daemon updates the postgresql table to inform the task-queuer daemon when clients are available
 4) The task-queuer.sh daemon scans the clients table and inteprets tasks (ansible plays) to execute on targets when they avail is set to Online.
