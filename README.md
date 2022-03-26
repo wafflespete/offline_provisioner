@@ -67,7 +67,7 @@ This will install and setup the necessary packages, postgresql tables, schemas, 
 
 ## Usage/Examples
 
-To use the offline provisioning system, build a playbook or use one of the example ones provided.
+To use the offline provisioning system, build a playbook or use one of the examples provided.
 
 
 ```bash
