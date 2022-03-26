@@ -5,7 +5,7 @@ Push based provisioning system for Ubuntu Server. Used for client systems that a
 
 ## Installation
 
-Clone the install to /opt ctory on a linux server
+Clone the install to the /opt directory on a linux server
 
 ```bash
 cd /opt; git clone https://github.com/wafflespete/offline_provisioner.git
@@ -34,7 +34,7 @@ Run the setup script:
   
 ```
     
-This will install and setup the necessary postgresql tables, schemas, and directories.
+This will install and setup the necessary packages, postgresql tables, schemas, and directories.
 
 
 ## Usage/Examples
