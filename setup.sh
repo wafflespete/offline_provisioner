@@ -6,11 +6,11 @@ if [[ -f misc/completed_setup ]]; then
     echo 'Offline Provisioner Setup Already Completed'
 fi
 ## setup.sh
-function PRETTY_OUTPUT () {
-
-        num=$1
-        v=$(printf "%-${num}s" "-")
-        echo "${v// /-}"
+function PRETTY_OUTPUT () 
+{
+    num=$1
+    v=$(printf "%-${num}s" "-")
+    echo "${v// /-}"
 }
 
 function error () 
@@ -115,9 +115,10 @@ echo "###################################"
 echo "Example Workstation has been added to clients table:"
 echo
 WORKSTATION1=$(sudo -u postgres sh -c 'psql postgres -tc "select hostname, state, os, ipv4, avail, last_seen, mac from clients" | grep -v 'row'')
-PRETTY_OUTPUT $WORKSTATION1
+WORKSTATION1_LEN=$(grep '-' <<< $WORKSTATION1 | wc -L)
+PRETTY_OUTPUT $WORKSTATION1_LEN
 echo $WORKSTATION1
-PRETTY_OUTPUT $WORKSTATION1
+PRETTY_OUTPUT $WORKSTATION1_LEN
 echo
 echo "To add additional workstations, run the add_clients.sh script"
 echo "To test out the task-queuer, run: ./custom-add.sh -P add_bogus_file -H workstation1"
